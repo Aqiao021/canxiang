@@ -1,0 +1,34 @@
+name: Publish Android download
+on:
+  push:
+    branches: [main]
+    paths: [downloads/android-manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: android-v091-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Restore and verify original signed APK
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          m=json.loads(Path('downloads/android-manifest.json').read_text())
+          out=Path('build');out.mkdir(exist_ok=True)
+          apk=out/m['filename']
+          with apk.open('wb') as dst:
+              for name in m['parts']:dst.write(Path(name).read_bytes())
+          assert apk.stat().st_size==m['bytes']
+          assert hashlib.sha256(apk.read_bytes()).hexdigest()==m['sha256']
+          print('Original APK bytes and SHA-256 verified')
+          PY
+      - name: Publish original Android package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v0.9.1 build/canxiang_v0.9.1_debug.apk --clobber
