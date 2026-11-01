@@ -31,5 +31,6 @@ jobs:
       - name: Publish original Android package
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release view v0.12 >/dev/null 2>&1 || gh release create v0.12 --title "残响之庭 v0.12" --notes "机关与配合的手绘特效"
+        run: |
+          gh release view v0.12 >/dev/null 2>&1 || gh release create v0.12 --title "残响之庭 v0.12" --notes "机关与配合的手绘特效"
           gh release upload v0.12 build/canxiang_v0.12_debug.apk --clobber
