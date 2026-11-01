@@ -93,7 +93,7 @@ body {
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 
-	<style>#status{background:#0b1019}#status-splash{display:none}#status-progress{accent-color:#d3b579}</style></head>
+	</head>
 	<body>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
@@ -111,7 +111,7 @@ body {
 
 		<script>
 // Serve the original game pack in smaller static files; its bytes are unchanged.
-const gardenPackParts = [{"file": "index.pck.part01.bin", "bytes": 8388608}, {"file": "index.pck.part02.bin", "bytes": 8388608}, {"file": "index.pck.part03.bin", "bytes": 8388608}, {"file": "index.pck.part04.bin", "bytes": 8388608}, {"file": "index.pck.part05.bin", "bytes": 8388608}, {"file": "index.pck.part06.bin", "bytes": 8388608}, {"file": "index.pck.tail01.bin", "bytes": 1048576}, {"file": "index.pck.tail02.bin", "bytes": 1048576}, {"file": "index.pck.tail03.bin", "bytes": 1048576}, {"file": "index.pck.tail04.bin", "bytes": 1048576}, {"file": "index.pck.tail05.bin", "bytes": 1048576}, {"file": "index.pck.tail06.bin", "bytes": 1048576}, {"file": "index.pck.tail07.bin", "bytes": 1048576}, {"file": "index.pck.tail08.bin", "bytes": 1048576}, {"file": "index.pck.tail09.bin", "bytes": 1048576}, {"file": "index.pck.tail10.bin", "bytes": 1048576}, {"file": "index.pck.tail11.bin", "bytes": 1048576}, {"file": "index.pck.tail12.bin", "bytes": 1048576}, {"file": "index.pck.tail13.bin", "bytes": 1048576}, {"file": "index.pck.tail14.bin", "bytes": 1048576}, {"file": "index.pck.tail15.bin", "bytes": 1048576}, {"file": "index.pck.tail16.bin", "bytes": 1048576}, {"file": "index.pck.tail17.bin", "bytes": 1048576}, {"file": "index.pck.tail18.bin", "bytes": 1048576}, {"file": "index.pck.tail19.bin", "bytes": 1048576}, {"file": "index.pck.tail20.bin", "bytes": 1048576}, {"file": "index.pck.tail21.bin", "bytes": 298332}];
+const gardenPackParts = [{"file": "v012.pack00.bin", "bytes": 8388608}, {"file": "v012.pack01.bin", "bytes": 8388608}, {"file": "v012.pack02.bin", "bytes": 8388608}, {"file": "v012.pack03.bin", "bytes": 8388608}, {"file": "v012.pack04.bin", "bytes": 8388608}, {"file": "v012.pack05.bin", "bytes": 8388608}, {"file": "v012.pack06.bin", "bytes": 8388608}, {"file": "v012.pack07.bin", "bytes": 8388608}, {"file": "v012.pack08.bin", "bytes": 8388608}, {"file": "v012.pack09.bin", "bytes": 163196}];
 const gardenNativeFetch = window.fetch.bind(window);
 window.fetch = async function(input, options) {
   const path = new URL(typeof input === 'string' ? input : input.url, location.href);
@@ -129,18 +129,19 @@ window.fetch = async function(input, options) {
         } catch (error) { controller.error(error); }
       }
     });
-    return new Response(stream, {headers:{'Content-Type':'application/octet-stream','Content-Length':'71601500'}});
+    return new Response(stream, {headers:{'Content-Type':'application/octet-stream','Content-Length':'75660668'}});
   }
   return gardenNativeFetch(input, options);
 };
 </script>
+
 <script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":71601500,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":75660668,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const parameters = new URLSearchParams(location.search);
-if (parameters.get('autotest') === 'battletest') GODOT_CONFIG.args = ['--', '--battletest'];
-const notifyGarden = (type, extra = {}) => parent.postMessage({source: 'canxiang-engine', type, ...extra}, location.origin);
+if(parameters.get('autotest')==='battletest') GODOT_CONFIG.args=['--','--battletest'];
+const notifyGarden=(type,extra={})=>parent.postMessage({source:'canxiang-engine',type,...extra},location.origin);
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
@@ -178,7 +179,7 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 
 	function displayFailureNotice(err) {
-		notifyGarden('error', {message: String(err)});
+ notifyGarden('error',{message:String(err)});
 		console.error(err);
 		if (err instanceof Error) {
 			setStatusNotice(err.message);
@@ -230,7 +231,7 @@ const engine = new Engine(GODOT_CONFIG);
 		setStatusMode('progress');
 		engine.startGame({
 			'onProgress': function (current, total) {
-			notifyGarden('progress', {current, total});
+ notifyGarden('progress',{current,total});
 				if (current > 0 && total > 0) {
 					statusProgress.value = current;
 					statusProgress.max = total;
@@ -240,8 +241,7 @@ const engine = new Engine(GODOT_CONFIG);
 				}
 			},
 		}).then(() => {
-			setStatusMode('hidden');
-			notifyGarden('ready');
+			setStatusMode('hidden');notifyGarden('ready');
 		}, displayFailureNotice);
 	}
 }());
