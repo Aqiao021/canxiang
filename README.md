@@ -1,4 +1,4 @@
-# 残响之庭 v0.12
+# 残响之庭 v0.12.2
 
 https://aqiao021.github.io/canxiang/
 

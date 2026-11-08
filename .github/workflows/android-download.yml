@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: android-v012-release
+  group: android-v0122-release
   cancel-in-progress: false
 jobs:
   publish:
@@ -32,5 +32,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view v0.12 >/dev/null 2>&1 || gh release create v0.12 --title "残响之庭 v0.12" --notes "机关与配合的手绘特效"
-          gh release upload v0.12 build/canxiang_v0.12_debug.apk --clobber
+          gh release view v0.12.2 >/dev/null 2>&1 || gh release create v0.12.2 --title "残响之庭 v0.12.2" --notes "局域网联机修复，包含 v0.12.1 小游戏修改"
+          gh release upload v0.12.2 build/canxiang_v0.12.2_debug.apk --clobber

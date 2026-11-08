@@ -111,7 +111,7 @@ body {
 
 		<script>
 // Serve the original game pack in smaller static files; its bytes are unchanged.
-const gardenPackParts = [{"file": "v012.pack00.bin", "bytes": 8388608}, {"file": "v012.pack01.bin", "bytes": 8388608}, {"file": "v012.pack02.bin", "bytes": 8388608}, {"file": "v012.pack03.bin", "bytes": 8388608}, {"file": "v012.pack04.bin", "bytes": 8388608}, {"file": "v012.pack05.bin", "bytes": 8388608}, {"file": "v012.pack06.bin", "bytes": 8388608}, {"file": "v012.pack07.bin", "bytes": 8388608}, {"file": "v012.pack08.bin", "bytes": 8388608}, {"file": "v012.pack09.bin", "bytes": 163276}];
+const gardenPackParts = [{"file": "v0122.pack00.bin", "bytes": 8388608}, {"file": "v0122.pack01.bin", "bytes": 8388608}, {"file": "v0122.pack02.bin", "bytes": 8388608}, {"file": "v0122.pack03.bin", "bytes": 8388608}, {"file": "v0122.pack04.bin", "bytes": 8388608}, {"file": "v0122.pack05.bin", "bytes": 8388608}, {"file": "v0122.pack06.bin", "bytes": 8388608}, {"file": "v0122.pack07.bin", "bytes": 8388608}, {"file": "v0122.pack08.bin", "bytes": 8388608}, {"file": "v0122.pack09.bin", "bytes": 176652}];
 const gardenNativeFetch = window.fetch.bind(window);
 window.fetch = async function(input, options) {
   const path = new URL(typeof input === 'string' ? input : input.url, location.href);
@@ -129,7 +129,7 @@ window.fetch = async function(input, options) {
         } catch (error) { controller.error(error); }
       }
     });
-    return new Response(stream, {headers:{'Content-Type':'application/octet-stream','Content-Length':'75660748'}});
+    return new Response(stream, {headers:{'Content-Type':'application/octet-stream','Content-Length':'75674124'}});
   }
   return gardenNativeFetch(input, options);
 };
@@ -137,7 +137,7 @@ window.fetch = async function(input, options) {
 
 <script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":75660748,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":75674124,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const notifyGarden=(type,extra={})=>parent.postMessage({source:'canxiang-engine',type,...extra},location.origin);const engine = new Engine(GODOT_CONFIG);
 
