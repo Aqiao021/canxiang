@@ -7,7 +7,7 @@ function launch(){
   const canvas=document.createElement('canvas');
   if(!canvas.getContext('webgl2')){fail('当前浏览器没有启用 WebGL 2，请开启硬件加速，或下载安卓版游玩。');return;}
   frame?.remove();$('start-screen').hidden=true;loading.hidden=false;$('retry').hidden=true;progress.hidden=false;progress.removeAttribute('value');$('loading-label').textContent='正在点亮提灯…';$('loading-detail').textContent='正在加载游戏资源，请稍候';$('play-status').textContent='游戏加载中';
-  frame=document.createElement('iframe');frame.id='game-frame';frame.title='残响之庭游戏';frame.allow='autoplay; fullscreen; gamepad';frame.src='game/index.html';
+  frame=document.createElement('iframe');frame.id='game-frame';frame.title='残响之庭游戏';frame.allow='autoplay; fullscreen; gamepad';frame.src='game/index.html?v=0.13';
   frame.addEventListener('error',()=>fail('连接中断，请检查网络后重新加载。'));
   $('game-mount').replaceChildren(frame);
   clearTimeout(timeout);timeout=setTimeout(()=>fail('加载时间较长。可以稍后重试，或使用下方的独立窗口。'),240000);

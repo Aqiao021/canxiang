@@ -1,21 +1,21 @@
 {
-  "version": "0.12.2",
-  "filename": "canxiang_v0.12.2_debug.apk",
-  "bytes": 104230423,
-  "sha256": "6a64a52432a670f7adf9cc71667e62c076122dc94accdc92189ea9639f66ce2c",
+  "version": "v0.13",
+  "filename": "canxiang_v0.13_debug.apk",
+  "bytes": 108905567,
+  "sha256": "c0ae2f96f62f3cb29cab06bfbc09277044a1ec827489b3561e09f0c1cd6be625",
   "parts": [
-    "downloads/v0122.apk000.bin",
-    "downloads/v0122.apk001.bin",
-    "downloads/v0122.apk002.bin",
-    "downloads/v0122.apk003.bin",
-    "downloads/v0122.apk004.bin",
-    "downloads/v0122.apk005.bin",
-    "downloads/v0122.apk006.bin",
-    "downloads/v0122.apk007.bin",
-    "downloads/v0122.apk008.bin",
-    "downloads/v0122.apk009.bin",
-    "downloads/v0122.apk010.bin",
-    "downloads/v0122.apk011.bin",
-    "downloads/v0122.apk012.bin"
+    "downloads/v013.apk000.bin",
+    "downloads/v013.apk001.bin",
+    "downloads/v013.apk002.bin",
+    "downloads/v013.apk003.bin",
+    "downloads/v013.apk004.bin",
+    "downloads/v013.apk005.bin",
+    "downloads/v013.apk006.bin",
+    "downloads/v013.apk007.bin",
+    "downloads/v013.apk008.bin",
+    "downloads/v013.apk009.bin",
+    "downloads/v013.apk010.bin",
+    "downloads/v013.apk011.bin",
+    "downloads/v013.apk012.bin"
   ]
 }

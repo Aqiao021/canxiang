@@ -110,36 +110,33 @@ body {
 		</div>
 
 		<script>
-// Serve the original game pack in smaller static files; its bytes are unchanged.
-const gardenPackParts = [{"file": "v0122.pack00.bin", "bytes": 8388608}, {"file": "v0122.pack01.bin", "bytes": 8388608}, {"file": "v0122.pack02.bin", "bytes": 8388608}, {"file": "v0122.pack03.bin", "bytes": 8388608}, {"file": "v0122.pack04.bin", "bytes": 8388608}, {"file": "v0122.pack05.bin", "bytes": 8388608}, {"file": "v0122.pack06.bin", "bytes": 8388608}, {"file": "v0122.pack07.bin", "bytes": 8388608}, {"file": "v0122.pack08.bin", "bytes": 8388608}, {"file": "v0122.pack09.bin", "bytes": 176652}];
+const gardenPackParts = [{"file": "v013.pack00.bin", "bytes": 8388608}, {"file": "v013.pack01.bin", "bytes": 8388608}, {"file": "v013.pack02.bin", "bytes": 8388608}, {"file": "v013.pack03.bin", "bytes": 8388608}, {"file": "v013.pack04.bin", "bytes": 8388608}, {"file": "v013.pack05.bin", "bytes": 8388608}, {"file": "v013.pack06.bin", "bytes": 8388608}, {"file": "v013.pack07.bin", "bytes": 8388608}, {"file": "v013.pack08.bin", "bytes": 8388608}, {"file": "v013.pack09.bin", "bytes": 4837568}];
 const gardenNativeFetch = window.fetch.bind(window);
 window.fetch = async function(input, options) {
-  const path = new URL(typeof input === 'string' ? input : input.url, location.href);
-  if (path.origin === location.origin && path.pathname.endsWith('/game/index.pck')) {
-    const stream = new ReadableStream({
-      async start(controller) {
-        try {
-          for (const part of gardenPackParts) {
-            const response = await gardenNativeFetch(new URL(part.file, location.href), options);
-            if (!response.ok) throw new Error('游戏资源加载失败，请稍后重试（' + response.status + '）');
-            const reader = response.body.getReader();
-            while (true) { const next = await reader.read(); if (next.done) break; controller.enqueue(next.value); }
-          }
-          controller.close();
-        } catch (error) { controller.error(error); }
-      }
-    });
-    return new Response(stream, {headers:{'Content-Type':'application/octet-stream','Content-Length':'75674124'}});
-  }
-  return gardenNativeFetch(input, options);
+ const path = new URL(typeof input === 'string' ? input : input.url, location.href);
+ if (path.origin === location.origin && path.pathname.endsWith('/game/index.pck')) {
+  const stream = new ReadableStream({async start(controller) {
+   try {
+    for (const part of gardenPackParts) {
+     const response=await gardenNativeFetch(new URL(part.file,location.href),options);
+     if(!response.ok) throw new Error('游戏资源加载失败（'+response.status+'）');
+     const reader=response.body.getReader();
+     while(true){const next=await reader.read();if(next.done)break;controller.enqueue(next.value);}
+    }
+    controller.close();
+   }catch(error){controller.error(error);}
+  }});
+  return new Response(stream,{headers:{'Content-Type':'application/octet-stream','Content-Length':'80335040'}});
+ }
+ return gardenNativeFetch(input, options);
 };
 </script>
-
-<script src="index.js"></script>
+<script src="index.js?v=0.13"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":75674124,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":80335040,"index.wasm":37700666},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
-const notifyGarden=(type,extra={})=>parent.postMessage({source:'canxiang-engine',type,...extra},location.origin);const engine = new Engine(GODOT_CONFIG);
+const notifyGarden=(type,extra={})=>parent.postMessage({source:'canxiang-engine',type,...extra},location.origin);
+const engine = new Engine(GODOT_CONFIG);
 
 (function () {
 	const statusOverlay = document.getElementById('status');
@@ -175,7 +172,7 @@ const notifyGarden=(type,extra={})=>parent.postMessage({source:'canxiang-engine'
 		});
 	}
 
-	function displayFailureNotice(err) {
+	function displayFailureNotice(err) { notifyGarden('error',{message:String(err)});
 		console.error(err);
 		if (err instanceof Error) {
 			setStatusNotice(err.message);
